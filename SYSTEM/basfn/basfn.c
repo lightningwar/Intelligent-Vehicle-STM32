@@ -7,9 +7,9 @@
 #include "sys.h"
 
 #define FRONT_LEFT	PCout(7)
-#define FRONT_RIGHT PCout(9)
-#define BACK_LEFT		PCout(6)
-#define BACK_RIGHT	PCout(8)
+#define FRONT_RIGHT	PCout(9)
+#define BACK_LEFT	PCout(6)
+#define BACK_RIGH	PCout(8)
 
 #define LED0 PFout(9)
 #define TRIG PBout(6)
@@ -18,14 +18,14 @@
 #define BEEP PFout(8)
 
 
-//À¶ÑÀ¿ØÖÆĞ¡³µ·½Ïò
+//è“ç‰™æ§åˆ¶å°è½¦æ–¹å‘
 void BT_DIRECTION(float distance)
 {
 	if(recvend == 1)
 	{
 		recvend =0;
 		
-		//À¶ÑÀ¿ØÖÆÍ£Ö¹
+		//è“ç‰™æ§åˆ¶åœæ­¢
 		if(recvbuf == 0x00)
 		{
 			LED0=1;
@@ -36,12 +36,12 @@ void BT_DIRECTION(float distance)
 			BACK_RIGHT = 1;
 		}
 		
-		//À¶ÑÀ¿ØÖÆÇ°½ø
+		//è“ç‰™æ§åˆ¶å‰è¿›
 		if(recvbuf == 0x01)
 		{
 			FRONT_LEFT = 0;
 			FRONT_RIGHT = 0;
-			//Î£ÏÕ²¢Ç¿ÖÆ½ûÖ¹Ç°½ø
+			//å±é™©å¹¶å¼ºåˆ¶ç¦æ­¢å‰è¿›
 			if(distance < 100 && distance >= 0)
 			{
 				FRONT_LEFT = 1;
@@ -49,19 +49,19 @@ void BT_DIRECTION(float distance)
 			}
 		}
 		
-		//À¶ÑÀ¿ØÖÆºóÍË
+		//è“ç‰™æ§åˆ¶åé€€
 		if(recvbuf == 0x02)
 		{
 			BACK_LEFT = 0;
 			BACK_RIGHT = 0;
 		}
 		
-		//À¶ÑÀ¿ØÖÆ×ó×ª
+		//è“ç‰™æ§åˆ¶å·¦è½¬
 		if(recvbuf == 0x03)
 		{
 			FRONT_RIGHT = 0;
 			BACK_LEFT = 0;
-			//Î£ÏÕ²¢Ç¿ÖÆ½ûÖ¹Ç°½ø
+			//å±é™©å¹¶å¼ºåˆ¶ç¦æ­¢å‰è¿›
 			if(distance < 100 && distance >= 0)
 			{
 				FRONT_LEFT = 1;
@@ -69,12 +69,12 @@ void BT_DIRECTION(float distance)
 			}
 		}
 		
-		//À¶ÑÀ¿ØÖÆÓÒ×ª
+		//è“ç‰™æ§åˆ¶å³è½¬
 		if(recvbuf == 0x04)
 		{
 			FRONT_LEFT = 0;
 			BACK_RIGHT = 0;
-			//Î£ÏÕ²¢Ç¿ÖÆ½ûÖ¹Ç°½ø
+			//å±é™©å¹¶å¼ºåˆ¶ç¦æ­¢å‰è¿›
 			if(distance < 100 && distance >= 0)
 			{
 				FRONT_LEFT = 1;
@@ -82,7 +82,7 @@ void BT_DIRECTION(float distance)
 			}
 		}
 		
-		//À¶ÑÀ¿ØÖÆÀ®°È
+		//è“ç‰™æ§åˆ¶å–‡å­
 		if(recvbuf == 0x05)
 		{
 			while(1)
@@ -95,7 +95,7 @@ void BT_DIRECTION(float distance)
 	}
 }
 
-//×ªÈ¦Ñ­¼£
+//è½¬åœˆå¾ªè¿¹
 void Cir_Montion(void)
 {
 	int t=10;
@@ -119,7 +119,7 @@ void Cir_Montion(void)
 	}
 }
 
-//µ¹³µÈë¿âÑ­¼£
+//å€’è½¦å…¥åº“å¾ªè¿¹
 void RSParking(void)
 {
 	int a=10,b=10,c=10,d=10;
@@ -167,10 +167,10 @@ void RSParking(void)
 	BACK_RIGHT = 1;
 }
 
-//ÓöÕÏÏµÍ³
+//é‡éšœç³»ç»Ÿ
 void EVADIBLE_sys(float distance)
 {
-	//°²È«¾àÀë
+	//å®‰å…¨è·ç¦»
 	if(distance <= 500+100 && distance > 300+100)
 	{
 		BEEP = 1;
@@ -179,10 +179,10 @@ void EVADIBLE_sys(float distance)
 		LED0 = 1;
 		BEEP = 0;
 		delay_ms(300);
-		//printf("°²È«¾àÀë:%0.02f\n",distance/1000);
+		//printf("å®‰å…¨è·ç¦»:%0.02f\n",distance/1000);
 	}
 	
-	//¾¯Ê¾¾àÀë
+	//è­¦ç¤ºè·ç¦»
 	if(distance <= 300+100 && distance >= 100+100)
 	{
 		LED0 = 0;
@@ -192,10 +192,10 @@ void EVADIBLE_sys(float distance)
 		LED0 = 1;
 		BEEP = 0;
 		delay_ms(75);
-		//printf("¾¯Ê¾¾àÀë:%0.02f\n",distance/1000);
+		//printf("è­¦ç¤ºè·ç¦»:%0.02f\n",distance/1000);
 	}
 
-	//Î£ÏÕ¾àÀë
+	//å±é™©è·ç¦»
 	if(distance < 100+100 && distance >= 100)
 	{
 		LED0 = 0;
@@ -206,10 +206,10 @@ void EVADIBLE_sys(float distance)
 		LED0 = 1;
 		BEEP = 0;
 		delay_ms(25);
-		//printf("Î£ÏÕÇø:%0.02f\n",distance/1000);
+		//printf("å±é™©åŒº:%0.02f\n",distance/1000);
 	}
 	
-	//Î£ÏÕ²¢Ç¿ÖÆ½ûÖ¹Ç°½ø
+	//å±é™©å¹¶å¼ºåˆ¶ç¦æ­¢å‰è¿›
 	if(distance < 100 && distance >=0)
 	{
 		FRONT_LEFT =1;
@@ -217,7 +217,7 @@ void EVADIBLE_sys(float distance)
 	}
 }
 
-//Í¨¹ı³¬Éù²¨²âÁ¿¾àÀë
+//é€šè¿‡è¶…å£°æ³¢æµ‹é‡è·ç¦»
 uint32_t SR04_get_distance(void)
 {
 	int time = 0;
@@ -225,7 +225,8 @@ uint32_t SR04_get_distance(void)
 	TRIG = 1;
 	delay_us(20);
 	TRIG = 0;
-	while(ECHO == 0){}
+	while(ECHO == 0)
+	{
 		if(ECHO == 1)
 		{
 			while(ECHO == 1)
@@ -234,11 +235,12 @@ uint32_t SR04_get_distance(void)
 				time++;
 			}
 		}
+	}
 	distance = time * 3;
 	return distance;
 }
 
-//»ñÈ¡³¬Éù²¨²âµÃµÄ¾àÀë
+//è·å–è¶…å£°æ³¢æµ‹å¾—çš„è·ç¦»
 float DISTANCE_measure(void)
 {
 	float distance;
